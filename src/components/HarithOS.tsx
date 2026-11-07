@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Compass, Factory, Layers, Cpu, Globe, ArrowRight, ShieldCheck } from 'lucide-react';
-import { PORTFOLIO_DATA, OSNode } from '../data/portfolioData';
+import { Compass, Factory, Layers, Cpu, Globe, ArrowRight, ShieldCheck, Sparkles } from 'lucide-react';
+import { PORTFOLIO_DATA } from '../data/portfolioData';
 
 interface HarithOSProps {
-  onSelectProject: (projectId: string) => void;
+  onSelectProject?: (projectId: string) => void;
 }
 
 export default function HarithOS({ onSelectProject }: HarithOSProps) {
@@ -15,7 +15,6 @@ export default function HarithOS({ onSelectProject }: HarithOSProps) {
   const activeNode = osNodes.find((n) => n.id === activeNodeId) || osNodes[0];
   const displayedNode = osNodes.find((n) => n.id === (hoveredNodeId || activeNodeId)) || activeNode;
 
-  // Icon mapping
   const getIcon = (id: string) => {
     switch (id) {
       case 'strategy':
@@ -33,7 +32,6 @@ export default function HarithOS({ onSelectProject }: HarithOSProps) {
     }
   };
 
-  // Node edges/connections
   const connections = [
     { from: 'strategy', to: 'industrial-execution' },
     { from: 'strategy', to: 'proptech' },
@@ -44,43 +42,46 @@ export default function HarithOS({ onSelectProject }: HarithOSProps) {
   ];
 
   return (
-    <section id="harith-os" className="py-24 px-6 sm:px-8 max-w-7xl mx-auto">
-      {/* Header */}
-      <div className="mb-12">
-        <div className="flex items-center gap-2 mb-3">
-          <span className="w-2 h-2 rounded-full bg-emerald-400" />
-          <span className="text-xs font-mono tracking-widest text-emerald-400 uppercase">
-            ARCHITECTURE / HARITH.OS
-          </span>
-        </div>
-        <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-3">
+    <section id="harith-os" className="py-24 sm:py-36 px-5 sm:px-10 lg:px-20 max-w-[1280px] mx-auto border-t border-[#DEDDD7]">
+      {/* Editorial Header */}
+      <div className="space-y-4 mb-16 max-w-2xl">
+        <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#66705B] font-semibold">
+          SYSTEM ARCHITECTURE · INTERACTIVE KNOWLEDGE GRAPH
+        </span>
+        <h2 className="font-serif text-5xl sm:text-6xl md:text-7xl text-[#171717] font-normal tracking-tight">
           HARITH.OS
         </h2>
-        <p className="text-base sm:text-lg text-zinc-400 max-w-2xl font-normal">
-          “An evolving system of experiences, problems and experiments.”
+        <p className="text-base sm:text-lg text-[#6B6B67] font-light leading-relaxed">
+          An evolving system connecting strategy, physical execution, PropTech infrastructure, and autonomous AI agents.
         </p>
       </div>
 
-      {/* Main OS Interactive Canvas Container */}
+      {/* Main Interactive Blueprint Canvas Container */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        {/* Visual Map (Desktop SVG Network) */}
-        <div className="lg:col-span-8 relative rounded-2xl bg-[#0d0f15] border border-[#1e2330] p-6 sm:p-8 min-h-[460px] sm:min-h-[520px] flex flex-col justify-between overflow-hidden shadow-2xl">
-          {/* Subtle grid backdrop */}
-          <div className="absolute inset-0 system-grid-bg opacity-30 pointer-events-none" />
+        {/* Visual Map (Desktop Blueprint Canvas) */}
+        <div className="lg:col-span-8 relative rounded-2xl bg-[#EFECE6] border border-[#DEDDD7] p-6 sm:p-8 min-h-[460px] sm:min-h-[520px] flex flex-col justify-between overflow-hidden shadow-xs">
+          {/* Subtle architectural dot grid background */}
+          <div
+            className="absolute inset-0 pointer-events-none opacity-40"
+            style={{
+              backgroundImage: 'radial-gradient(#C8C4B8 1px, transparent 1px)',
+              backgroundSize: '24px 24px',
+            }}
+          />
 
           {/* Top telemetry bar */}
-          <div className="relative z-10 flex items-center justify-between pb-4 border-b border-[#1c212e] text-[11px] font-mono text-zinc-500">
-            <span className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
-              SYSTEM MAP: 5 CONNECTED NODES
+          <div className="relative z-10 flex items-center justify-between pb-4 border-b border-[#DCD7CA] text-xs font-mono text-[#6B6B67]">
+            <span className="flex items-center gap-2 font-medium">
+              <span className="w-2 h-2 rounded-full bg-[#66705B] animate-pulse" />
+              SYSTEM MAP: 5 CONNECTED DOMAIN NODES
             </span>
-            <span className="hidden sm:inline text-zinc-400">
-              COORDINATES: LATENT KNOWLEDGE SPACE
+            <span className="hidden sm:inline text-[#8C8A82]">
+              COORDINATES: LATENT EXPERIENCE SPACE
             </span>
           </div>
 
           {/* Desktop SVG Canvas */}
-          <div className="relative w-full h-[360px] sm:h-[400px] my-auto hidden sm:block">
+          <div className="relative w-full h-[340px] sm:h-[380px] my-auto hidden sm:block">
             {/* SVG Connecting Lines */}
             <svg className="absolute inset-0 w-full h-full pointer-events-none z-0">
               {connections.map(({ from, to }, idx) => {
@@ -98,20 +99,11 @@ export default function HarithOS({ onSelectProject }: HarithOSProps) {
                       y1={`${nodeA.y}%`}
                       x2={`${nodeB.x}%`}
                       y2={`${nodeB.y}%`}
-                      stroke={isHighlighted ? 'rgba(16, 185, 129, 0.6)' : 'rgba(255, 255, 255, 0.09)'}
+                      stroke={isHighlighted ? '#66705B' : '#D0CBC0'}
                       strokeWidth={isHighlighted ? '2' : '1'}
                       strokeDasharray={isHighlighted ? 'none' : '4 4'}
                       className="transition-all duration-300"
                     />
-                    {isHighlighted && (
-                      <circle r="2.5" fill="#34d399">
-                        <animateMotion
-                          dur="3s"
-                          repeatCount="indefinite"
-                          path={`M ${(nodeA.x / 100) * 600},${(nodeA.y / 100) * 360} L ${(nodeB.x / 100) * 600},${(nodeB.y / 100) * 360}`}
-                        />
-                      </circle>
-                    )}
                   </g>
                 );
               })}
@@ -133,35 +125,27 @@ export default function HarithOS({ onSelectProject }: HarithOSProps) {
                     onClick={() => setActiveNodeId(node.id)}
                     onMouseEnter={() => setHoveredNodeId(node.id)}
                     onMouseLeave={() => setHoveredNodeId(null)}
-                    className={`group relative flex flex-col items-center cursor-pointer transition-all duration-300 focus:outline-none`}
+                    className="group relative flex flex-col items-center cursor-pointer transition-all duration-300 focus:outline-none"
                     id={`os-node-${node.id}`}
                   >
                     {/* Ring indicator */}
                     <div
                       className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-300 ${
                         isActive
-                          ? 'bg-[#18202d] border-2 border-emerald-400 shadow-lg shadow-emerald-500/20 scale-110'
+                          ? 'bg-[#171717] text-white border-2 border-[#171717] shadow-lg scale-110'
                           : isHovered
-                          ? 'bg-[#151923] border border-zinc-500 scale-105'
-                          : 'bg-[#11131a] border border-[#232838] hover:border-zinc-600'
+                          ? 'bg-[#FFFFFF] text-[#171717] border border-[#66705B] scale-105 shadow-sm'
+                          : 'bg-[#F7F6F2] text-[#6B6B67] border border-[#DEDDD7] hover:border-[#66705B]'
                       }`}
                     >
-                      <Icon
-                        className={`w-6 h-6 transition-colors ${
-                          isActive
-                            ? 'text-emerald-300'
-                            : isHovered
-                            ? 'text-white'
-                            : 'text-zinc-400 group-hover:text-zinc-200'
-                        }`}
-                      />
+                      <Icon className="w-6 h-6 transition-colors" />
                     </div>
 
                     {/* Node label */}
-                    <div className="mt-2 px-2.5 py-1 rounded-md bg-[#0a0c12]/90 border border-[#1f2433] text-center whitespace-nowrap">
+                    <div className="mt-2 px-2.5 py-1 rounded-md bg-[#FFFFFF] border border-[#DEDDD7] text-center whitespace-nowrap shadow-xs">
                       <p
-                        className={`text-[11px] font-mono font-semibold tracking-wider uppercase transition-colors ${
-                          isActive ? 'text-emerald-400' : 'text-zinc-300'
+                        className={`text-[10px] font-mono font-bold tracking-wider uppercase transition-colors ${
+                          isActive ? 'text-[#66705B]' : 'text-[#171717]'
                         }`}
                       >
                         {node.name}
@@ -174,7 +158,7 @@ export default function HarithOS({ onSelectProject }: HarithOSProps) {
           </div>
 
           {/* Mobile Vertical Interactive Experience */}
-          <div className="sm:hidden flex flex-col gap-3 my-4">
+          <div className="sm:hidden flex flex-col gap-2.5 my-4">
             {osNodes.map((node, idx) => {
               const Icon = getIcon(node.id);
               const isActive = activeNodeId === node.id;
@@ -182,23 +166,25 @@ export default function HarithOS({ onSelectProject }: HarithOSProps) {
                 <button
                   key={node.id}
                   onClick={() => setActiveNodeId(node.id)}
-                  className={`p-4 rounded-xl text-left border flex items-center justify-between transition-all ${
+                  className={`p-3.5 rounded-xl text-left border flex items-center justify-between transition-all ${
                     isActive
-                      ? 'bg-[#161a24] border-emerald-500/60'
-                      : 'bg-[#10121a] border-[#202535]'
+                      ? 'bg-[#171717] text-white border-[#171717]'
+                      : 'bg-[#FFFFFF] text-[#171717] border-[#DEDDD7]'
                   }`}
                 >
                   <div className="flex items-center gap-3">
-                    <div className="p-2 rounded-lg bg-[#1a1f2c] border border-zinc-700">
-                      <Icon className="w-5 h-5 text-emerald-400" />
+                    <div className={`p-2 rounded-lg ${isActive ? 'bg-[#333333]' : 'bg-[#F7F6F2]'}`}>
+                      <Icon className={`w-4 h-4 ${isActive ? 'text-[#98A38C]' : 'text-[#66705B]'}`} />
                     </div>
                     <div>
-                      <p className="text-xs font-mono text-zinc-400">0{idx + 1} / NODE</p>
-                      <p className="text-sm font-bold text-white tracking-wide">{node.name}</p>
+                      <p className={`text-[10px] font-mono ${isActive ? 'text-zinc-400' : 'text-[#6B6B67]'}`}>
+                        0{idx + 1} / NODE
+                      </p>
+                      <p className="text-xs font-bold tracking-wide">{node.name}</p>
                     </div>
                   </div>
-                  <span className={`text-xs font-mono ${isActive ? 'text-emerald-400 font-semibold' : 'text-zinc-500'}`}>
-                    {isActive ? 'ACTIVE' : 'SELECT'}
+                  <span className={`text-[10px] font-mono font-bold ${isActive ? 'text-[#98A38C]' : 'text-[#6B6B67]'}`}>
+                    {isActive ? 'ACTIVE' : 'INSPECT'}
                   </span>
                 </button>
               );
@@ -206,39 +192,35 @@ export default function HarithOS({ onSelectProject }: HarithOSProps) {
           </div>
 
           {/* Bottom helper prompt */}
-          <div className="relative z-10 pt-4 border-t border-[#1c212e] flex items-center justify-between text-[11px] font-mono text-zinc-500">
-            <span>HOVER TO INSPECT • CLICK TO FOCUS</span>
-            <span className="text-emerald-400/80">LIVE NODE: {displayedNode.name}</span>
+          <div className="relative z-10 pt-4 border-t border-[#DCD7CA] flex items-center justify-between text-xs font-mono text-[#6B6B67]">
+            <span>HOVER TO PREVIEW · CLICK TO FOCUS</span>
+            <span className="text-[#66705B] font-bold">NODE: {displayedNode.name}</span>
           </div>
         </div>
 
         {/* Node Focus Inspector Card */}
-        <div className="lg:col-span-4 rounded-2xl bg-[#0d0f15] border border-[#1e2330] p-6 sm:p-7 flex flex-col justify-between shadow-2xl relative overflow-hidden min-h-[460px]">
-          <div className="absolute top-0 right-0 p-6 text-[80px] font-mono font-extrabold text-white/[0.02] pointer-events-none select-none">
-            OS
-          </div>
-
+        <div className="lg:col-span-4 rounded-2xl bg-[#FFFFFF] border border-[#DEDDD7] p-6 sm:p-7 flex flex-col justify-between shadow-xs relative overflow-hidden min-h-[460px] sm:min-h-[520px]">
           <div>
-            <div className="flex items-center justify-between mb-4">
-              <span className="px-2.5 py-1 rounded bg-[#161a25] border border-[#23293b] text-[10px] font-mono text-emerald-400 font-semibold uppercase tracking-wider">
+            <div className="flex items-center justify-between mb-4 pb-3 border-b border-[#EFECE6]">
+              <span className="px-2.5 py-1 rounded bg-[#F0F2EE] text-[10px] font-mono text-[#66705B] font-bold uppercase tracking-wider">
                 NODE INSPECTOR
               </span>
-              <span className="text-xs font-mono text-zinc-500">{displayedNode.metrics}</span>
+              <span className="text-xs font-mono text-[#6B6B67]">{displayedNode.metrics}</span>
             </div>
 
-            <h3 className="text-2xl font-bold tracking-tight text-white mb-2">
+            <h3 className="font-serif text-3xl font-normal text-[#171717] mb-2">
               {displayedNode.name}
             </h3>
 
-            <p className="text-sm text-zinc-300 leading-relaxed mb-6 font-medium">
+            <p className="text-sm text-[#6B6B67] leading-relaxed mb-6 font-light">
               {displayedNode.shortDesc}
             </p>
 
-            <div className="p-4 rounded-xl bg-[#11141c] border border-[#1d2230] mb-6">
-              <p className="text-xs font-mono text-zinc-400 uppercase tracking-wider mb-2">
+            <div className="p-4 rounded-xl bg-[#F7F6F2] border border-[#E8E6DF] mb-6">
+              <p className="text-[10px] font-mono text-[#66705B] font-bold uppercase tracking-wider mb-2">
                 SYSTEM ARCHITECTURE
               </p>
-              <p className="text-xs text-zinc-400 leading-relaxed">
+              <p className="text-xs text-[#333333] leading-relaxed">
                 {displayedNode.details}
               </p>
             </div>
@@ -246,44 +228,31 @@ export default function HarithOS({ onSelectProject }: HarithOSProps) {
             {/* Related project hooks */}
             {displayedNode.relatedProjects && displayedNode.relatedProjects.length > 0 && (
               <div>
-                <p className="text-xs font-mono text-zinc-400 uppercase tracking-wider mb-3">
+                <p className="text-[10px] font-mono text-[#6B6B67] uppercase tracking-wider mb-2">
                   LINKED EXECUTION ARTIFACTS
                 </p>
-                <div className="space-y-2">
-                  {displayedNode.relatedProjects.map((projId) => {
-                    const matchedProj = PORTFOLIO_DATA.projects.find((p) => p.id === projId);
-                    if (!matchedProj) return null;
-                    return (
-                      <div
-                        key={projId}
-                        onClick={() => onSelectProject(projId)}
-                        className="p-3 rounded-lg bg-[#141824] hover:bg-[#1a2030] border border-[#22283a] hover:border-emerald-500/40 flex items-center justify-between cursor-pointer transition-all group"
-                      >
-                        <div>
-                          <p className="text-xs font-bold text-white group-hover:text-emerald-300 transition-colors">
-                            {matchedProj.name}
-                          </p>
-                          <p className="text-[11px] font-mono text-zinc-400">
-                            {matchedProj.category}
-                          </p>
-                        </div>
-                        <ArrowRight className="w-4 h-4 text-zinc-500 group-hover:text-emerald-400 group-hover:translate-x-0.5 transition-all" />
-                      </div>
-                    );
-                  })}
+                <div className="flex flex-wrap gap-1.5">
+                  {displayedNode.relatedProjects.map((p) => (
+                    <span
+                      key={p}
+                      className="px-2.5 py-1 rounded-md bg-[#F2F0E8] border border-[#E0DDCF] text-[11px] font-mono text-[#171717]"
+                    >
+                      {p}
+                    </span>
+                  ))}
                 </div>
               </div>
             )}
           </div>
 
-          <div className="pt-6 mt-6 border-t border-[#1c212e]">
-            <a
-              href="#work"
-              className="w-full py-2.5 px-4 rounded-lg bg-[#151923] hover:bg-[#1c2230] border border-[#242b3d] hover:border-zinc-600 text-xs font-mono font-medium text-zinc-300 hover:text-white flex items-center justify-center gap-2 transition-all"
-            >
-              <span>DEEP DIVE IN SELECTED WORK</span>
+          <div className="pt-6 border-t border-[#EFECE6] flex items-center justify-between">
+            <span className="text-[11px] font-mono text-[#6B6B67]">
+              VERIFIED SYSTEMS THESIS
+            </span>
+            <div className="flex items-center gap-1.5 text-xs font-mono text-[#66705B] font-bold">
+              <span>EXPLORE</span>
               <ArrowRight className="w-3.5 h-3.5" />
-            </a>
+            </div>
           </div>
         </div>
       </div>

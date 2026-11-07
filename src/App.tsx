@@ -6,15 +6,33 @@
 import { useState } from 'react';
 import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
+import PhotoGalleryBento from './components/PhotoGalleryBento';
 import WorkExperienceSection from './components/WorkExperienceSection';
 import ProjectsSection from './components/ProjectsSection';
 import AboutSection from './components/AboutSection';
 import ResumeSection from './components/ResumeSection';
 import ContactSection from './components/ContactSection';
 import ProjectDetailModal, { ProjectDetailData } from './components/ProjectDetailModal';
+import SecretVaultModal from './components/SecretVaultModal';
+import DossierClearance from './components/DossierClearance';
 
 export default function App() {
   const [selectedDetail, setSelectedDetail] = useState<ProjectDetailData | null>(null);
+  const [isVaultOpen, setIsVaultOpen] = useState<boolean>(false);
+
+  // Gamification tracking state
+  const [gamificationState, setGamificationState] = useState({
+    viewedPhoto: false,
+    exploredLandsafe: false,
+    scrubbedEthanol: false,
+    triedPitch: false,
+  });
+
+  const markTask = (key: keyof typeof gamificationState) => {
+    setGamificationState((prev) => ({ ...prev, [key]: true }));
+  };
+
+  const isUnlocked = Object.values(gamificationState).filter(Boolean).length >= 2;
 
   const scrollToSection = (sectionId: string) => {
     const el = document.getElementById(sectionId);
@@ -25,6 +43,7 @@ export default function App() {
 
   const handleOpenColdConnectFromModal = () => {
     scrollToSection('projects');
+    markTask('triedPitch');
     const tryBtn = document.getElementById('try-cold-connect-btn');
     if (tryBtn) {
       tryBtn.click();
@@ -32,24 +51,39 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F7F6F2] text-[#171717] selection:bg-[#66705B]/20 selection:text-[#171717] relative font-sans">
+    <div className="min-h-screen bg-[#F8F7F4] text-[#171717] selection:bg-[#66705B]/20 selection:text-[#171717] relative font-sans">
       {/* Extremely Minimal Sticky Navigation */}
-      <Navbar />
+      <Navbar
+        onOpenVault={() => setIsVaultOpen(true)}
+        isVaultUnlocked={isUnlocked}
+      />
 
-      {/* Editorial Scroll-Driven Hero Section with Integrated Time Ticker */}
+      {/* Editorial Scroll-Driven Hero Section with Integrated Desk Clock & Portrait */}
       <HeroSection
         onExploreWork={() => scrollToSection('work')}
         onExploreAbout={() => scrollToSection('about')}
       />
 
-      {/* WORK EXPERIENCE: Where I have actually worked (Vertical Editorial Timeline) */}
-      <WorkExperienceSection
-        onOpenExperienceDetail={(item) => setSelectedDetail(item)}
+      {/* NEW: THE VISUAL PHOTO DOSSIER BENTO (Uploadable Real Pictures + Stories) */}
+      <PhotoGalleryBento
+        onPhotoInteracted={() => markTask('viewedPhoto')}
       />
 
-      {/* PROJECTS: Things I've built, experimented with and explored */}
+      {/* WORK EXPERIENCE: Tactile ₹152 Cr Scrubber & LANDSAFE Cadastral Map */}
+      <WorkExperienceSection
+        onOpenExperienceDetail={(item) => {
+          setSelectedDetail(item);
+          if (item.id === 'landsafe') markTask('exploredLandsafe');
+          if (item.id === 'vivek-bio') markTask('scrubbedEthanol');
+        }}
+      />
+
+      {/* PROJECTS: Cold Connect (Interactive Pitch Studio) */}
       <ProjectsSection
-        onOpenProjectDetail={(project) => setSelectedDetail(project)}
+        onOpenProjectDetail={(project) => {
+          setSelectedDetail(project);
+          markTask('triedPitch');
+        }}
       />
 
       {/* Editorial About Section */}
@@ -61,11 +95,24 @@ export default function App() {
       {/* Quiet, Direct Contact Section */}
       <ContactSection />
 
-      {/* Minimal Editorial Detail Modal */}
+      {/* Detail Modal */}
       <ProjectDetailModal
         project={selectedDetail}
         onClose={() => setSelectedDetail(null)}
         onOpenColdConnectDemo={handleOpenColdConnectFromModal}
+      />
+
+      {/* Secret Vault Modal (Gamification Surprise / Director's Cut) */}
+      <SecretVaultModal
+        isOpen={isVaultOpen}
+        onClose={() => setIsVaultOpen(false)}
+      />
+
+      {/* Dossier Clearance Gamification Floating Pill */}
+      <DossierClearance
+        unlockedVault={isUnlocked}
+        onOpenVault={() => setIsVaultOpen(true)}
+        state={gamificationState}
       />
     </div>
   );

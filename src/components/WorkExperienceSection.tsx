@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ArrowRight, ChevronDown, ChevronUp, MapPin, Calendar, CheckCircle2, ShieldCheck, Factory, BarChart3, Layers, Compass, ExternalLink } from 'lucide-react';
 import { ProjectDetailData } from './ProjectDetailModal';
+import CadastralVerificationSandbox from './CadastralVerificationSandbox';
+import IndustrialScrubberSandbox from './IndustrialScrubberSandbox';
 
 interface WorkExperienceSectionProps {
   onOpenExperienceDetail: (experience: ProjectDetailData) => void;
@@ -390,62 +392,11 @@ export default function WorkExperienceSection({
 
                         {/* Distinct Minimal Editorial Diagrams */}
                         {exp.id === 'landsafe' && (
-                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
-                            <div className="p-3.5 rounded-lg bg-[#FFFFFF] border border-[#E5E4DE] space-y-1">
-                              <span className="font-mono text-[10px] text-[#66705B]">PHASE 01</span>
-                              <div className="font-semibold text-[#171717]">Record Ingestion</div>
-                              <p className="text-[11px] text-[#6B6B67] leading-relaxed">
-                                Normalizing paper deed registers, encumbrance certificates & sub-registrar logs.
-                              </p>
-                            </div>
-                            <div className="p-3.5 rounded-lg bg-[#FFFFFF] border border-[#E5E4DE] space-y-1">
-                              <span className="font-mono text-[10px] text-[#66705B]">PHASE 02</span>
-                              <div className="font-semibold text-[#171717]">Cadastral Alignment</div>
-                              <p className="text-[11px] text-[#6B6B67] leading-relaxed">
-                                Cross-referencing survey village maps against physical coordinates to flag disputes.
-                              </p>
-                            </div>
-                            <div className="p-3.5 rounded-lg bg-[#FFFFFF] border border-[#E5E4DE] space-y-1">
-                              <span className="font-mono text-[10px] text-[#66705B]">PHASE 03</span>
-                              <div className="font-semibold text-[#171717]">Clean Title Artifact</div>
-                              <p className="text-[11px] text-[#6B6B67] leading-relaxed">
-                                Exporting verifiable risk indicators and diligence certificates for institutions.
-                              </p>
-                            </div>
-                          </div>
+                          <CadastralVerificationSandbox />
                         )}
 
                         {exp.id === 'vivek-bio' && (
-                          <div className="grid grid-cols-1 sm:grid-cols-4 gap-3 text-xs">
-                            <div className="p-3 rounded-lg bg-[#FFFFFF] border border-[#E5E4DE] space-y-1">
-                              <span className="font-mono text-[10px] text-[#66705B]">01. CIVIL</span>
-                              <div className="font-semibold text-[#171717]">Heavy Piling</div>
-                              <p className="text-[11px] text-[#6B6B67] leading-relaxed">
-                                Distillation foundation & boiler house civil load paths.
-                              </p>
-                            </div>
-                            <div className="p-3 rounded-lg bg-[#FFFFFF] border border-[#E5E4DE] space-y-1">
-                              <span className="font-mono text-[10px] text-[#66705B]">02. MECHANICAL</span>
-                              <div className="font-semibold text-[#171717]">Piping & Steam</div>
-                              <p className="text-[11px] text-[#6B6B67] leading-relaxed">
-                                Fermentation tank farms & high-pressure steam distribution.
-                              </p>
-                            </div>
-                            <div className="p-3 rounded-lg bg-[#FFFFFF] border border-[#E5E4DE] space-y-1">
-                              <span className="font-mono text-[10px] text-[#66705B]">03. OEM UNITS</span>
-                              <div className="font-semibold text-[#171717]">100 KLPD Columns</div>
-                              <p className="text-[11px] text-[#6B6B67] leading-relaxed">
-                                Molecular sieve dehydration & multi-pressure distillation towers.
-                              </p>
-                            </div>
-                            <div className="p-3 rounded-lg bg-[#FFFFFF] border border-[#E5E4DE] space-y-1">
-                              <span className="font-mono text-[10px] text-[#66705B]">04. STATUTORY</span>
-                              <div className="font-semibold text-[#171717]">PESO & Licensing</div>
-                              <p className="text-[11px] text-[#6B6B67] leading-relaxed">
-                                Environmental approvals, explosive licensing & commissioning.
-                              </p>
-                            </div>
-                          </div>
+                          <IndustrialScrubberSandbox />
                         )}
 
                         {exp.id === 'rashtra' && (

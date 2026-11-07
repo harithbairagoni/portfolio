@@ -30,9 +30,9 @@ export default function PortfolioScrollHero({
   // Profile photo state (retrieved from localStorage or actual uploaded photo)
   const [photoUrl, setPhotoUrl] = useState<string | null>(() => {
     try {
-      return localStorage.getItem('harith_profile_photo') || null;
+      return localStorage.getItem('harith_profile_photo') || '/photos/profile-suit.jpg';
     } catch {
-      return null;
+      return '/photos/profile-suit.jpg';
     }
   });
 

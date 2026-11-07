@@ -4,16 +4,16 @@ import { ArrowRight, Camera, Upload } from 'lucide-react';
 
 export default function AboutSection() {
   const [photoUrl, setPhotoUrl] = useState<string | null>(() => {
-    return localStorage.getItem('harith_profile_photo') || null;
+    return localStorage.getItem('harith_profile_photo') || '/photos/profile-casual.jpg';
   });
   const [imageLoadError, setImageLoadError] = useState<boolean>(false);
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  // Attempt to check if P1052201.JPG or profile.jpg exists in public root if not in localStorage
+  // Attempt to check if candidate photos exist
   useEffect(() => {
     if (!photoUrl) {
-      const candidates = ['/P1052201.JPG', '/profile.jpg', '/P1052203.JPG'];
+      const candidates = ['/photos/profile-casual.jpg', '/photos/profile-suit.jpg', '/photos/profile.jpg'];
       let candidateIndex = 0;
 
       const tryNextCandidate = () => {
